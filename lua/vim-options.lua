@@ -11,7 +11,7 @@ vim.opt.smartcase = true
 vim.opt.signcolumn = "yes" -- Keep signcolumn on by default
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 1000
-vim.opt.list = true
+vim.opt.list = false
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
