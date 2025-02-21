@@ -16,6 +16,11 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
+vim.opt.mouse = 'a'
+vim.opt.undofile = true
+
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=4")
