@@ -55,6 +55,13 @@ return {
 					border = "rounded",
 				},
 			})
+
+			vim.g.diagnostics_virtual_text_enabled = false
+			vim.keymap.set("n", "<leader>tv", function()
+				vim.g.diagnostics_virtual_text_enabled = not vim.g.diagnostics_virtual_text_enabled
+				vim.diagnostic.config({ virtual_text = vim.g.diagnostics_virtual_text_enabled })
+			end, { desc = "[T]oggle diagnostics [V]irtual text" })
+
 			-- Go to next/previous diagnostic
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })

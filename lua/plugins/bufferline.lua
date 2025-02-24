@@ -29,19 +29,26 @@ return {
           return vim.fn.fnamemodify(buf.name, ":t")
         end,
 
-        -- Example diagnostics config (shows error/warn icons)
+        -- Shows diagnostics icon
         diagnostics = "nvim_lsp",
         diagnostics_indicator = function(count, level)
           local icon = (level == "error" and " ") or " "
           return " " .. icon .. count
         end,
 
-        -- Hide close icons if you prefer minimal look
+        -- Hide close icons by default
         show_close_icon = false,
         show_buffer_close_icons = false,
 
         -- Style the separators, e.g., "slant", "padded_slant", "thin", etc.
         separator_style = "slant",
+
+        close_command = function(n)
+          require("bufferline.commands").close_buffer(n, false) -- Close buffer & switch to next
+        end,
+        right_mouse_command = function(n)
+          require("bufferline.commands").close_buffer(n, false) -- Right-click closes & switches
+        end,
 
         -- Show bufferline even if only one buffer is open
         always_show_bufferline = true,
