@@ -28,7 +28,6 @@ return {
 			lspconfig.pylsp.setup({
 				capabilities = capabilities,
 			})
-			-- lspconfig.pyright.setup({})
 			lspconfig.basedpyright.setup({
 				capabilities = capabilities,
 			})
@@ -49,7 +48,7 @@ return {
 			vim.diagnostic.config({
 				underline = true,
 				sings = true,
-				virtual_text = false, -- or true if you prefer inline messages
+				virtual_text = false,
 				update_in_insert = true,
 				float = {
 					border = "rounded",

@@ -10,8 +10,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "dbout",
   callback = function()
-    -- Disable folding (so tables won't auto-fold)
-    vim.opt_local.foldenable = false
+    vim.opt_local.foldenable = false  -- Prevent SQL tables from autofolding
 
     -- Set keymaps for horizontal scrolling
     -- "zh" scrolls view half a character left, "zH" is full width, etc.
