@@ -45,13 +45,27 @@ return { -- Useful plugin to show you pending keybinds.
 		-- Document existing key chains
 		spec = {
 			{ "<leader>c", group = "[C]ode", mode = { "n", "x" } },
-		-- 	{ "<leader>d", group = "[D]ocument" },
+			{ "<leader>d", group = "[D]ebug" },
 		-- 	{ "<leader>r", group = "[R]ename" },
 			{ "<leader>s", group = "[S]earch" },
 		-- 	{ "<leader>w", group = "[W]orkspace" },
-		-- 	{ "<leader>t", group = "[T]oggle" },
-		-- 	{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
+			{ "<leader>t", group = "[T]oggle" },
+			{ "<leader>h", group = "[H]arpoon and Git [H]unk", mode = { "n", "v" } },
 			{ "<leader>g", group = "[G]o to" },
 		},
+		config = function ()
+			local wk = require("which-key")
+			wk.setup()
+
+			wk.register({
+				["<C-b>"] = { "Scroll docs up" },
+				["<C-f>"] = { "Scroll docs down" },
+				["<C-Space>"] = { "Trigger completion" },
+				["<C-e>"] = { "Abort/close completion" },
+				["<CR>"] = { "Confirm completion" },
+			})
+
+
+		end
 	},
 }

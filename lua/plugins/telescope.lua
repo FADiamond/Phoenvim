@@ -2,7 +2,35 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.8",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{
+				"ThePrimeagen/harpoon",
+				-- Normal Harpoon config
+				config = function()
+					local mark = require("harpoon.mark")
+					local ui = require("harpoon.ui")
+
+					-- Example Harpoon keymaps
+					vim.keymap.set("n", "<leader>ha", mark.add_file, { desc = "Harpoon: Add file" })
+					vim.keymap.set("n", "<leader>hh", ui.toggle_quick_menu, { desc = "Harpoon: Toggle menu" })
+
+					-- Jump to specific marks
+					vim.keymap.set("n", "<leader>h1", function()
+						ui.nav_file(1)
+					end, { desc = "Harpoon: Go to mark 1" })
+					vim.keymap.set("n", "<leader>h2", function()
+						ui.nav_file(2)
+					end, { desc = "Harpoon: Go to mark 2" })
+					vim.keymap.set("n", "<leader>h3", function()
+						ui.nav_file(3)
+					end, { desc = "Harpoon: Go to mark 3" })
+					vim.keymap.set("n", "<leader>h4", function()
+						ui.nav_file(4)
+					end, { desc = "Harpoon: Go to mark 4" })
+				end,
+			},
+		},
 		config = function()
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
@@ -38,15 +66,48 @@ return {
 	{
 		"nvim-telescope/telescope-ui-select.nvim",
 		config = function()
-			require("telescope").setup({
+			local telescope = require("telescope")
+			telescope.setup({
 				extensions = {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown({}),
 					},
 				},
 			})
-			pcall(require("telescope").load_extension, "ui-select")
-			pcall(require("telescope").load_extension, "fzf")
+			pcall(telescope.load_extension, "ui-select")
+			pcall(telescope.load_extension, "fzf")
+			pcall(telescope.load_extension, "harpoon")
+
+			vim.keymap.set("n", "<leader>hm", function()
+				telescope.extensions.harpoon.marks()
+			end, { desc = "Telescope [H]arpoon [M]arks" })
+		end,
+	},
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			local mark = require("harpoon.mark")
+			local ui = require("harpoon.ui")
+
+			-- Keymaps to add file, show menu, etc.
+			vim.keymap.set("n", "<leader>ha", mark.add_file, { desc = "[H]arpoon [A]dd file" })
+			vim.keymap.set("n", "<leader>hh", ui.toggle_quick_menu, { desc = "[H]arpoo Toggle menu" })
+
+			-- Jump directly to specific marks
+			vim.keymap.set("n", "<leader>h1", function()
+				ui.nav_file(1)
+			end, { desc = "Harpoon: Go to mark 1" })
+			vim.keymap.set("n", "<leader>h2", function()
+				ui.nav_file(2)
+			end, { desc = "Harpoon: Go to mark 2" })
+			vim.keymap.set("n", "<leader>h3", function()
+				ui.nav_file(3)
+			end, { desc = "Harpoon: Go to mark 3" })
+			vim.keymap.set("n", "<leader>h4", function()
+				ui.nav_file(4)
+			end, { desc = "Harpoon: Go to mark 4" })
 		end,
 	},
 }
