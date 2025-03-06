@@ -23,3 +23,23 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+
+-- vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+--   desc = "Enforce 4-space indentation across all filetypes",
+--   pattern = "*",
+--   callback = function()
+--     -- Skip certain filetypes that should have their own settings
+--     local ft = vim.bo.filetype
+--     local skip_filetypes = {
+--       -- Add any exceptions here (filetypes that should NOT use 4 spaces)
+--     }
+--
+--     if not vim.tbl_contains(skip_filetypes, ft) then
+--       vim.bo.tabstop = 4
+--       vim.bo.softtabstop = 4
+--       vim.bo.shiftwidth = 4
+--       vim.bo.expandtab = true
+--     end
+--   end
+-- })
+

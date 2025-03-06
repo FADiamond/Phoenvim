@@ -2,13 +2,28 @@ return {
 	{
 		"williamboman/mason.nvim",
 		config = function()
-			require("mason").setup()
+			require("mason").setup({
+				registries = {
+					"github:Crashdummyy/mason-registry",
+					"github:mason-org/mason-registry",
+				},
+			})
 		end,
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
 		opts = {
-			ensure_installed = { "lua_ls", "ts_ls", "basedpyright", "pylsp", "tinymist" },
+			ensure_installed = {
+				"lua_ls",
+				"ts_ls",
+				"basedpyright",
+				"pylsp",
+				"tinymist",
+				"volar",
+				"html",
+				"cssls",
+				"eslint",
+			},
 			auto_install = true,
 		},
 	},
@@ -16,13 +31,12 @@ return {
 		"neovim/nvim-lspconfig",
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 			local lspconfig = require("lspconfig")
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.ts_ls.setup({
 
+			local mason_path = vim.fn.stdpath("data") .. "/mason/packages"
+			local volar_path = mason_path .. "/vue-language-server/node_modules/@vue/language-server"
+
+			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
 			})
 			lspconfig.pylsp.setup({
@@ -31,6 +45,120 @@ return {
 			lspconfig.basedpyright.setup({
 				capabilities = capabilities,
 			})
+
+			-- Webdev LSP Servers
+			lspconfig.ts_ls.setup({
+				capabilities = capabilities,
+				init_options = {
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = volar_path,
+							languages = { "vue" },
+						},
+					},
+				},
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
+				settings = {
+					typescript = {
+						inlayHints = {
+							includeInlayParameterNameHints = "all",
+							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+							includeInlayFunctionParameterTypeHints = true,
+							includeInlayVariableTypeHints = true,
+							includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+							includeInlayPropertyDeclarationTypeHints = true,
+							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayEnumMemberValueHints = true,
+						},
+					},
+				},
+			})
+
+			-- Volar for Vue files
+			lspconfig.volar.setup({
+				capabilities = capabilities,
+				on_attach = on_attach,
+				filetypes = { "vue" },
+				-- Only activate in Vue projects
+				root_dir = lspconfig.util.root_pattern(
+					"package.json",
+					"vue.config.js",
+					"vue.config.ts",
+					"nuxt.config.js",
+					"nuxt.config.ts"
+				),
+				init_options = {
+					typescript = {
+						tsdk = mason_path .. "/typescript-language-server/node_modules/typescript/lib",
+					},
+					languageFeatures = {
+						implementation = true,
+						references = true,
+						definition = true,
+						typeDefinition = true,
+						callHierarchy = true,
+						hover = true,
+						rename = true,
+						renameFileRefactoring = true,
+						signatureHelp = true,
+						codeAction = true,
+						workspaceSymbol = true,
+						diagnostics = true,
+					},
+				},
+			})
+			-- HTML
+			lspconfig.html.setup({
+				capabilities = capabilities,
+			})
+
+			-- CSS
+			lspconfig.cssls.setup({
+				capabilities = capabilities,
+			})
+
+			-- ESLint
+			lspconfig.eslint.setup({
+				capabilities = capabilities,
+				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+				settings = {
+					codeAction = {
+						disableRuleComment = {
+							enable = true,
+							location = "separateLine",
+						},
+						showDocumentation = { enable = true },
+					},
+					format = true,
+					nodePath = "",
+					onIgnoredFiles = "off",
+					workingDirectory = { mode = "location" },
+				},
+			})
+
+			-- lspconfig.ruff.setup({
+			-- 	capabilities = capabilities,
+			-- 	settings = {
+			-- 		ruff = {
+			-- 			lint = {
+			-- 				enable = true,
+			-- 			},
+			-- 			organizeImports = true,
+			-- 			fixAll = true,
+			-- 		},
+			-- 	},
+			-- 	on_attach = function(client, bufnr)
+			-- 		require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
+			-- 		local function format_and_organize()
+			-- 			vim.lsp.buf.format({ async = false, timeout_ms = 100 })
+			-- 		end
+			-- 		vim.keymap.set("n", "<leader>cF", format_and_organize, {
+			-- 			buffer = bufnr,
+			-- 			desc = "Format ruff",
+			-- 		})
+			-- 	end,
+			-- })
 
 			lspconfig.clangd.setup({
 				capabilities = capabilities,
