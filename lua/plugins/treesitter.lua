@@ -18,6 +18,7 @@ return {
                 "json",
                 "yaml",
                 "markdown",
+                "markdown_inline",
                 "tsx",
             },
             highlight = { enable = true },

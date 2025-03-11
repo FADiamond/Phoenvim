@@ -110,4 +110,22 @@ return {
 			end, { desc = "Harpoon: Go to mark 4" })
 		end,
 	},
+	-- lua/plugins/snippets-browse.lua
+	{
+		{
+			"benfowler/telescope-luasnip.nvim",
+			dependencies = {
+				"nvim-telescope/telescope.nvim",
+				"L3MON4D3/LuaSnip",
+			},
+			config = function()
+				require("telescope").load_extension("luasnip")
+
+				-- Add a keybinding to browse snippets
+				vim.keymap.set("n", "<leader>sS", "<cmd>Telescope luasnip<CR>", {
+					desc = "[S]earch [S]nippets",
+				})
+			end,
+		},
+	},
 }

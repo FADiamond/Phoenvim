@@ -1,0 +1,263 @@
+{
+  "Heading 1": {
+    "prefix": "h1",
+    "body": "# $1",
+    "description": "Level 1 heading"
+  },
+  "Heading 2": {
+    "prefix": "h2",
+    "body": "## $1",
+    "description": "Level 2 heading"
+  },
+  "Heading 3": {
+    "prefix": "h3",
+    "body": "### $1",
+    "description": "Level 3 heading"
+  },
+  "Heading 4": {
+    "prefix": "h4",
+    "body": "#### $1",
+    "description": "Level 4 heading"
+  },
+  "Heading 5": {
+    "prefix": "h5",
+    "body": "##### $1",
+    "description": "Level 5 heading"
+  },
+  "Heading 6": {
+    "prefix": "h6",
+    "body": "###### $1",
+    "description": "Level 6 heading"
+  },
+  "Bold": {
+    "prefix": "bold",
+    "body": "**$1**$0",
+    "description": "Bold text"
+  },
+  "Italic": {
+    "prefix": "italic",
+    "body": "*$1*$0",
+    "description": "Italic text"
+  },
+  "Bold Italic": {
+    "prefix": "bolditalic",
+    "body": "***$1***$0",
+    "description": "Bold and italic text"
+  },
+  "Strikethrough": {
+    "prefix": "strike",
+    "body": "~~$1~~$0",
+    "description": "Strikethrough text"
+  },
+  "Inline Code": {
+    "prefix": "code",
+    "body": "`$1`$0",
+    "description": "Inline code"
+  },
+  "Code Block": {
+    "prefix": "codeblock",
+    "body": ["```${1:language}", "$2", "```$0"],
+    "description": "Code block"
+  },
+  "Link": {
+    "prefix": "link",
+    "body": "[$1]($2)$0",
+    "description": "Hyperlink"
+  },
+  "Image": {
+    "prefix": "img",
+    "body": "![$1]($2)$0",
+    "description": "Image"
+  },
+  "Blockquote": {
+    "prefix": "quote",
+    "body": "> $1",
+    "description": "Blockquote"
+  },
+  "Horizontal Rule": {
+    "prefix": "hr",
+    "body": "---",
+    "description": "Horizontal rule"
+  },
+  "Unordered List": {
+    "prefix": "ul",
+    "body": "- $1",
+    "description": "Unordered list item"
+  },
+  "Ordered List": {
+    "prefix": "ol",
+    "body": "1. $1",
+    "description": "Ordered list item"
+  },
+  "Task": {
+    "prefix": "task",
+    "body": "- [ ] $1",
+    "description": "Task list item"
+  },
+  "Completed Task": {
+    "prefix": "taskdone",
+    "body": "- [x] $1",
+    "description": "Completed task list item"
+  },
+  "Table": {
+    "prefix": "table",
+    "body": [
+      "| ${1:Header 1} | ${2:Header 2} |",
+      "| ------------- | ------------- |",
+      "| ${3:Content 1} | ${4:Content 2} |",
+      "| ${5:Content 3} | ${6:Content 4} |$0"
+    ],
+    "description": "Table with 2 columns"
+  },
+  "Table 3 Columns": {
+    "prefix": "table3",
+    "body": [
+      "| ${1:Header 1} | ${2:Header 2} | ${3:Header 3} |",
+      "| ------------- | ------------- | ------------- |",
+      "| ${4:Content 1} | ${5:Content 2} | ${6:Content 3} |",
+      "| ${7:Content 4} | ${8:Content 5} | ${9:Content 6} |$0"
+    ],
+    "description": "Table with 3 columns"
+  },
+  "Front Matter": {
+    "prefix": "frontmatter",
+    "body": [
+      "---",
+      "title: ${1:Document Title}",
+      "date: ${2:YYYY-MM-DD}",
+      "tags: [${3:tag1, tag2}]",
+      "---",
+      "",
+      "$0"
+    ],
+    "description": "YAML front matter for markdown documents"
+  },
+  "Footnote": {
+    "prefix": "footnote",
+    "body": "[^${1:1}]$0",
+    "description": "Footnote reference"
+  },
+  "Footnote Definition": {
+    "prefix": "footdef",
+    "body": "[^${1:1}]: ${2:Footnote definition}$0",
+    "description": "Footnote definition"
+  },
+  "Definition": {
+    "prefix": "def",
+    "body": ["${1:Term}", ": ${2:Definition}"],
+    "description": "Definition list item"
+  },
+  "Math Inline": {
+    "prefix": "math",
+    "body": "$${1:equation}$$0",
+    "description": "Inline LaTeX equation"
+  },
+  "Math Block": {
+    "prefix": "mathblock",
+    "body": ["$$", "${1:equation}", "$$", "$0"],
+    "description": "Block LaTeX equation"
+  },
+  "Mermaid Diagram": {
+    "prefix": "mermaid",
+    "body": [
+      "```mermaid",
+      "${1:graph TD}",
+      "    ${2:A[Start]} --> ${3:B[End]}",
+      "```",
+      "$0"
+    ],
+    "description": "Mermaid diagram"
+  },
+  "Details Block": {
+    "prefix": "details",
+    "body": [
+      "<details>",
+      "<summary>${1:Summary}</summary>",
+      "",
+      "${2:Content}",
+      "",
+      "</details>",
+      "$0"
+    ],
+    "description": "Details/summary block"
+  },
+  "Callout Note": {
+    "prefix": "note",
+    "body": ["> [!NOTE]", "> ${1:Note content}", "$0"],
+    "description": "Note callout block (for GitHub)"
+  },
+  "Callout Warning": {
+    "prefix": "warning",
+    "body": ["> [!WARNING]", "> ${1:Warning content}", "$0"],
+    "description": "Warning callout block (for GitHub)"
+  },
+  "Callout Tip": {
+    "prefix": "tip",
+    "body": ["> [!TIP]", "> ${1:Tip content}", "$0"],
+    "description": "Tip callout block (for GitHub)"
+  },
+  "Meeting Notes": {
+    "prefix": "meeting",
+    "body": [
+      "# Meeting: ${1:Title}",
+      "",
+      "- **Date:** ${2:YYYY-MM-DD}",
+      "- **Time:** ${3:HH:MM}",
+      "- **Participants:** ${4:Names}",
+      "",
+      "## Agenda",
+      "",
+      "1. ${5:Item 1}",
+      "2. ${6:Item 2}",
+      "",
+      "## Notes",
+      "",
+      "### ${5:Item 1}",
+      "",
+      "- ${7:Notes}",
+      "",
+      "### ${6:Item 2}",
+      "",
+      "- ${8:Notes}",
+      "",
+      "## Action Items",
+      "",
+      "- [ ] ${9:Action item}",
+      "",
+      "$0"
+    ],
+    "description": "Meeting notes template"
+  },
+  "Blog Post": {
+    "prefix": "blog",
+    "body": [
+      "---",
+      "title: \"${1:Post Title}\"",
+      "date: ${2:YYYY-MM-DD}",
+      "tags: [${3:tag1, tag2}]",
+      "draft: true",
+      "---",
+      "",
+      "# ${1:Post Title}",
+      "",
+      "## Introduction",
+      "",
+      "${4:Introduction goes here}",
+      "",
+      "## ${5:Section 1}",
+      "",
+      "${6:Content goes here}",
+      "",
+      "## ${7:Section 2}",
+      "",
+      "${8:Content goes here}",
+      "",
+      "## Conclusion",
+      "",
+      "${9:Conclusion goes here}",
+      "",
+      "$0"
+    ],
+    "description": "Blog post template"
+  }
+}

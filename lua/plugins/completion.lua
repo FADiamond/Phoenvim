@@ -8,6 +8,12 @@ return {
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
 		},
+		config = function()
+			-- Load snippet paths for our custom snippets BEFORE initializing luasnip
+			require("luasnip.loaders.from_vscode").lazy_load({
+				paths = vim.fn.stdpath("config") .. "/lua/snippets"
+			})
+		end,
 	},
 	{
 		"hrsh7th/nvim-cmp",
