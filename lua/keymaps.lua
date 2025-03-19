@@ -9,3 +9,15 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 
 vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreview<CR>", { desc = "Markdown preview" })
 vim.keymap.set("n", "<leader>m=", "<cmd>TableFormat<CR>", { desc = "Format markdown table" })
+
+vim.keymap.set("n", "<leader>tc", function()
+  if vim.bo.filetype == "java" then
+    require("jdtls").test_class();
+  end
+end, { desc = "[T]est [C]lass" })
+
+vim.keymap.set("n", "<leader>tm", function()
+  if vim.bo.filetype == "java" then
+    require("jdtls").test_nearest_method();
+  end
+end, { desc = "[T]est [M]ethod" })

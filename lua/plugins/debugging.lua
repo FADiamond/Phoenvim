@@ -37,6 +37,48 @@ return {
 				dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
 			end, { desc = "[D]ebug Set [B]reakpoint with condition" })
 
+			dap.configurations.java = {
+				{
+					name = "Debug Launch (2GB)",
+					type = "java",
+					request = "launch",
+					vmArgs = "" .. "-Xmx2g ",
+				},
+				{
+					name = "Debug Attach (8000)",
+					type = "java",
+					request = "attach",
+					hostName = "127.0.0.1",
+					port = 8000,
+				},
+				{
+					name = "Debug Attach (5005)",
+					type = "java",
+					request = "attach",
+					hostName = "127.0.0.1",
+					port = 5005,
+				},
+				{
+					name = "My Custom Java Run Configuration",
+					type = "java",
+					request = "launch",
+					-- You need to extend the classPath to list your dependencies.
+					-- `nvim-jdtls` would automatically add the `classPaths` property if it is missing
+					-- classPaths = {},
+
+					-- If using multi-module projects, remove otherwise.
+					-- projectName = "yourProjectName",
+
+					-- javaExec = "java",
+					mainClass = "replace.with.your.fully.qualified.MainClass",
+
+					-- If using the JDK9+ module system, this needs to be extended
+					-- `nvim-jdtls` would automatically populate this property
+					-- modulePaths = {},
+					vmArgs = "" .. "-Xmx2g ",
+				},
+			}
+
 			-- C# adapter configuration
 			dap.adapters.coreclr = {
 				type = "executable",
@@ -134,6 +176,24 @@ return {
 					require("mason-nvim-dap").default_setup(config)
 				end,
 			},
+		},
+	},
+	{
+		-- Inline Debug Text
+		-- https://github.com/theHamsta/nvim-dap-virtual-text
+		"theHamsta/nvim-dap-virtual-text",
+		lazy = true,
+		opts = {
+			-- Display debug text as a comment
+			commented = true,
+			-- Customize virtual text
+			display_callback = function(variable, buf, stackframe, node, options)
+				if options.virt_text_pos == "inline" then
+					return " = " .. variable.value
+				else
+					return variable.name .. " = " .. variable.value
+				end
+			end,
 		},
 	},
 }

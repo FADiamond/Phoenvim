@@ -23,18 +23,33 @@ return {
 				"html",
 				"cssls",
 				"eslint",
+				"gradle_ls",
+				"jdtls",
 			},
 			auto_install = true,
 		},
 	},
 	{
 		"neovim/nvim-lspconfig",
+		dependencies = {
+			{ "folke/neodev.nvim", opts = {} },
+			{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
+		},
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
 
 			local mason_path = vim.fn.stdpath("data") .. "/mason/packages"
 			local volar_path = mason_path .. "/vue-language-server/node_modules/@vue/language-server"
+
+			require("mason-tool-installer").setup({
+				-- Install these linters, formatters, debuggers automatically
+				ensure_installed = {
+					"java-debug-adapter",
+					"java-test",
+				},
+			})
+			vim.api.nvim_command('MasonToolsInstall')
 
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
