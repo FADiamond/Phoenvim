@@ -50,9 +50,11 @@ return { -- Useful plugin to show you pending keybinds.
 		-- 	{ "<leader>r", group = "[R]ename" },
 			{ "<leader>s", group = "[S]earch" },
 		-- 	{ "<leader>w", group = "[W]orkspace" },
+			{ "<leader>J", group = "[J]ava" },
 			{ "<leader>t", group = "[T]oggle" },
 			{ "<leader>h", group = "[H]arpoon and Git [H]unk", mode = { "n", "v" } },
 			{ "<leader>g", group = "[G]o to" },
+			{ "<leader>b", group = "[B]uffer" },
 		},
 		config = function ()
 			local wk = require("which-key")

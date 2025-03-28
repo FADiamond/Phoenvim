@@ -23,6 +23,13 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- vim.cmd [[
+--     augroup jdtls_lsp
+--         autocmd!
+--         autocmd FileType java lua require'ftplugin.jdtls'.setup_jdtls()
+--     augroup end
+-- ]]
+
 
 -- vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
 --   desc = "Enforce 4-space indentation across all filetypes",

@@ -25,6 +25,7 @@ return {
 				"eslint",
 				"gradle_ls",
 				"jdtls",
+				"omnisharp"
 			},
 			auto_install = true,
 		},
@@ -49,7 +50,12 @@ return {
 					"java-test",
 				},
 			})
-			vim.api.nvim_command('MasonToolsInstall')
+			vim.api.nvim_command("MasonToolsInstall")
+			local jdtls = function()
+				require("java").setup({
+					-- Your custom nvim-java configuration goes here
+				})
+			end
 
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
@@ -182,9 +188,14 @@ return {
 				capabilities = capabilities,
 			})
 
+			lspconfig.omnisharp.setup({
+				capabilities = capabilities
+			})
+
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "[G]o to [D]efinition" })
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { desc = "[G]o to [R]eferences" })
+			-- vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation(), { desc = "[G]o to [I]mplementations" })
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ctions" })
 			vim.keymap.set({ "n", "v" }, "<leader>cr", vim.lsp.buf.rename, { desc = "[C]ode [R]ename" })
 
