@@ -77,18 +77,18 @@ return {
 
 				-- CSS/SCSS linting
 				null_ls.builtins.diagnostics.stylelint.with({
-					filetypes = { "css", "scss", "vue" },
+					filetypes = { "css", "scss" },
 					prefer_local = "node_modules/.bin",
 				}),
-				-- require("none-ls.diagnostics.eslint").with({
-				-- 	filetypes = {
-				-- 		"javascript",
-				-- 		"javascriptreact",
-				-- 		"typescript",
-				-- 		"typescriptreact",
-				-- 		"vue",
-				-- 	},
-				-- }),
+				require("none-ls.diagnostics.eslint").with({
+					filetypes = {
+						"javascript",
+						"javascriptreact",
+						"typescript",
+						"typescriptreact",
+						"vue",
+					},
+				}),
 				-- Typst
 				null_ls.builtins.formatting.typstfmt,
 			},

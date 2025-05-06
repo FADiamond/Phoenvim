@@ -25,7 +25,7 @@ return {
 				"eslint",
 				"gradle_ls",
 				"jdtls",
-				"omnisharp"
+				"omnisharp",
 			},
 			auto_install = true,
 		},
@@ -35,6 +35,14 @@ return {
 		dependencies = {
 			{ "folke/neodev.nvim", opts = {} },
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
+			{
+				"SmiteshP/nvim-navbuddy",
+				dependencies = {
+					"SmiteshP/nvim-navic",
+					"MunifTanjim/nui.nvim",
+				},
+				opts = { lsp = { auto_attach = true } },
+			},
 		},
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -42,6 +50,13 @@ return {
 
 			local mason_path = vim.fn.stdpath("data") .. "/mason/packages"
 			local volar_path = mason_path .. "/vue-language-server/node_modules/@vue/language-server"
+			-- 	local mason_registry = require("mason-registry")
+			-- 	local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+			-- .. "/node_modules/@vue/language-server"
+			--
+			vim.keymap.set("n", "<leader>tn", function()
+				require("nvim-navbuddy").open()
+			end, { desc = "[T]oggle [N]avbuddy" })
 
 			require("mason-tool-installer").setup({
 				-- Install these linters, formatters, debuggers automatically
@@ -83,7 +98,7 @@ return {
 						},
 					},
 				},
-				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 				settings = {
 					typescript = {
 						inlayHints = {
@@ -144,24 +159,24 @@ return {
 			})
 
 			-- ESLint
-			lspconfig.eslint.setup({
-				capabilities = capabilities,
-				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
-				settings = {
-					codeAction = {
-						disableRuleComment = {
-							enable = true,
-							location = "separateLine",
-						},
-						showDocumentation = { enable = true },
-					},
-					format = true,
-					nodePath = "",
-					onIgnoredFiles = "off",
-					workingDirectory = { mode = "location" },
-				},
-			})
-
+			-- lspconfig.eslint.setup({
+			-- 	capabilities = capabilities,
+			-- 	filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+			-- 	settings = {
+			-- 		codeAction = {
+			-- 			disableRuleComment = {
+			-- 				enable = true,
+			-- 				location = "separateLine",
+			-- 			},
+			-- 			showDocumentation = { enable = true },
+			-- 		},
+			-- 		format = true,
+			-- 		nodePath = "",
+			-- 		onIgnoredFiles = "off",
+			-- 		workingDirectory = { mode = "location" },
+			-- 	},
+			-- })
+			--
 			-- lspconfig.ruff.setup({
 			-- 	capabilities = capabilities,
 			-- 	settings = {
@@ -193,13 +208,13 @@ return {
 			})
 
 			lspconfig.omnisharp.setup({
-				capabilities = capabilities
+				capabilities = capabilities,
 			})
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "[G]o to [D]efinition" })
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { desc = "[G]o to [R]eferences" })
-			-- vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation(), { desc = "[G]o to [I]mplementations" })
+			-- vim.keymap.set("n", "<leader>gi", vim.lsp.buf.go_to_implementation(), { desc = "[G]o to [I]mplementations" })
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ctions" })
 			vim.keymap.set({ "n", "v" }, "<leader>cr", vim.lsp.buf.rename, { desc = "[C]ode [R]ename" })
 
@@ -209,8 +224,14 @@ return {
 				virtual_text = false,
 				update_in_insert = true,
 				float = {
+					source = true,
 					border = "rounded",
 				},
+			})
+
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+				-- Use a sharp border with `FloatBorder` highlights
+				border = "single",
 			})
 
 			vim.g.diagnostics_virtual_text_enabled = false
