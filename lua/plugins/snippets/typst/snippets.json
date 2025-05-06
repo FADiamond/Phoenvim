@@ -1,0 +1,324 @@
+{
+  "Document Setup": {
+    "prefix": "setup",
+    "body": [
+      "#set page(width: 8.5in, height: 11in, margin: 1in)",
+      "#set text(font: \"New Computer Modern\", size: 11pt)",
+      "#set heading(numbering: \"1.1\")",
+      "",
+      "= ${1:Document Title}",
+      "",
+      "${2:Content starts here...}",
+      "$0"
+    ],
+    "description": "Basic document setup"
+  },
+  "Heading 1": {
+    "prefix": "h1",
+    "body": "= ${1:Heading}$0",
+    "description": "Level 1 heading"
+  },
+  "Heading 2": {
+    "prefix": "h2",
+    "body": "== ${1:Heading}$0",
+    "description": "Level 2 heading"
+  },
+  "Heading 3": {
+    "prefix": "h3",
+    "body": "=== ${1:Heading}$0",
+    "description": "Level 3 heading"
+  },
+  "Heading 4": {
+    "prefix": "h4",
+    "body": "==== ${1:Heading}$0",
+    "description": "Level 4 heading"
+  },
+  "Bold": {
+    "prefix": "bold",
+    "body": "*${1:text}*$0",
+    "description": "Bold text"
+  },
+  "Italic": {
+    "prefix": "italic",
+    "body": "_${1:text}_$0",
+    "description": "Italic text"
+  },
+  "Underline": {
+    "prefix": "underline",
+    "body": "#underline[${1:text}]$0",
+    "description": "Underlined text"
+  },
+  "Link": {
+    "prefix": "link",
+    "body": "#link(\"${1:url}\")[${2:text}]$0",
+    "description": "Hyperlink"
+  },
+  "Image": {
+    "prefix": "image",
+    "body": "#image(\"${1:path}\", width: ${2:100%})$0",
+    "description": "Image"
+  },
+  "Figure": {
+    "prefix": "figure",
+    "body": [
+      "#figure(",
+      "  ${1|image(\"path/to/image\"),table(columns: (1fr, 1fr), [Header 1], [Header 2], [Row 1, Col 1], [Row 1, Col 2])|}",
+      "  caption: [${2:Figure caption}],",
+      ")$0"
+    ],
+    "description": "Figure with caption"
+  },
+  "Table": {
+    "prefix": "table",
+    "body": [
+      "#table(",
+      "  columns: (${1:1fr}, ${2:1fr}),",
+      "  [${3:Header 1}], [${4:Header 2}],",
+      "  [${5:Row 1, Col 1}], [${6:Row 1, Col 2}],",
+      ")$0"
+    ],
+    "description": "Table with 2 columns"
+  },
+  "List (Bulleted)": {
+    "prefix": "ul",
+    "body": "- ${1:Item}$0",
+    "description": "Bulleted list item"
+  },
+  "List (Numbered)": {
+    "prefix": "ol",
+    "body": "+ ${1:Item}$0",
+    "description": "Numbered list item"
+  },
+  "Math Inline": {
+    "prefix": "math",
+    "body": "$${1:equation}$$0",
+    "description": "Inline math"
+  },
+  "Math Block": {
+    "prefix": "mathblock",
+    "body": [
+      "$ ",
+      "  ${1:equation}",
+      "$",
+      "$0"
+    ],
+    "description": "Math display block"
+  },
+  "Equation Aligned": {
+    "prefix": "align",
+    "body": [
+      "#align(center, $",
+      "  ${1:equation}",
+      "$)$0"
+    ],
+    "description": "Centered equation"
+  },
+  "Matrix": {
+    "prefix": "matrix",
+    "body": "$mat(${1:1, 2; 3, 4})$$0",
+    "description": "Matrix"
+  },
+  "Code Block": {
+    "prefix": "code",
+    "body": [
+      "#raw(\"\"\"",
+      "${1:code}",
+      "\"\"\", lang: \"${2:language}\")$0"
+    ],
+    "description": "Code block with syntax highlighting"
+  },
+  "Inline Code": {
+    "prefix": "incode",
+    "body": "`${1:code}`$0",
+    "description": "Inline code"
+  },
+  "Block": {
+    "prefix": "block",
+    "body": [
+      "#block[",
+      "  ${1:content}",
+      "]$0"
+    ],
+    "description": "Block element"
+  },
+  "Box": {
+    "prefix": "box",
+    "body": [
+      "#box(",
+      "  width: ${1:100%},",
+      "  inset: ${2:1em},",
+      "  stroke: ${3:1pt + black},",
+      "  radius: ${4:4pt},",
+      ")[",
+      "  ${5:content}",
+      "]$0"
+    ],
+    "description": "Box with borders"
+  },
+  "Columns": {
+    "prefix": "columns",
+    "body": [
+      "#columns(${1:2})[",
+      "  #column(width: ${2:1fr})[",
+      "    ${3:First column content}",
+      "  ]",
+      "  #column(width: ${4:1fr})[",
+      "    ${5:Second column content}",
+      "  ]",
+      "]$0"
+    ],
+    "description": "Multiple columns layout"
+  },
+  "Centered Content": {
+    "prefix": "center",
+    "body": [
+      "#align(center)[",
+      "  ${1:content}",
+      "]$0"
+    ],
+    "description": "Center-aligned content"
+  },
+  "Page Break": {
+    "prefix": "pagebreak",
+    "body": "#pagebreak()$0",
+    "description": "Page break"
+  },
+  "Footnote": {
+    "prefix": "footnote",
+    "body": "#footnote[${1:content}]$0",
+    "description": "Footnote"
+  },
+  "Label": {
+    "prefix": "label",
+    "body": "#label(\"${1:label-name}\")$0",
+    "description": "Label for referencing"
+  },
+  "Reference": {
+    "prefix": "ref",
+    "body": "@${1:label-name}$0",
+    "description": "Reference to a label"
+  },
+  "Citation": {
+    "prefix": "cite",
+    "body": "#cite[${1:reference}]$0",
+    "description": "Citation"
+  },
+  "Bibliography": {
+    "prefix": "bibliography",
+    "body": "#bibliography(\"${1:bibliography.bib}\", style: \"${2:ieee}\")$0",
+    "description": "Bibliography"
+  },
+  "Theorem": {
+    "prefix": "theorem",
+    "body": [
+      "#theorem[",
+      "  ${1:content}",
+      "]$0"
+    ],
+    "description": "Theorem environment"
+  },
+  "Proof": {
+    "prefix": "proof",
+    "body": [
+      "#proof[",
+      "  ${1:content}",
+      "]$0"
+    ],
+    "description": "Proof environment"
+  },
+  "Definition": {
+    "prefix": "definition",
+    "body": [
+      "#definition[",
+      "  ${1:content}",
+      "]$0"
+    ],
+    "description": "Definition environment"
+  },
+  "Example": {
+    "prefix": "example",
+    "body": [
+      "#example[",
+      "  ${1:content}",
+      "]$0"
+    ],
+    "description": "Example environment"
+  },
+  "Import Package": {
+    "prefix": "import",
+    "body": "#import \"${1:package}\": ${2:*}$0",
+    "description": "Import package"
+  },
+  "Set Rule": {
+    "prefix": "set",
+    "body": "#set ${1:element}(${2:parameter}: ${3:value})$0",
+    "description": "Set styling rule"
+  },
+  "Show Rule": {
+    "prefix": "show",
+    "body": "#show ${1:element}: ${2:style => {$3}}$0",
+    "description": "Show styling rule"
+  },
+  "For Loop": {
+    "prefix": "for",
+    "body": [
+      "#for ${1:item} in ${2:array} [",
+      "  ${3:content}",
+      "]$0"
+    ],
+    "description": "For loop"
+  },
+  "Cases": {
+    "prefix": "cases",
+    "body": [
+      "$cases(",
+      "  ${1:expression1}, \"if \" + ${2:condition1},",
+      "  ${3:expression2}, \"if \" + ${4:condition2},",
+      ")$$0"
+    ],
+    "description": "Mathematical cases"
+  },
+  "Article Template": {
+    "prefix": "article",
+    "body": [
+      "#set document(title: \"${1:Document Title}\", author: \"${2:Author Name}\")",
+      "#set page(numbering: \"1\", number-align: center)",
+      "#set text(font: \"New Computer Modern\", size: 11pt)",
+      "#set heading(numbering: \"1.1\")",
+      "",
+      "#align(center)[",
+      "  #block(text(weight: \"bold\", size: 16pt, \"${1:Document Title}\"))",
+      "  #v(0.5em)",
+      "  #block(text(size: 12pt, \"${2:Author Name}\"))",
+      "  #v(0.5em)",
+      "  #block(text(size: 10pt, \"${3:Institution}\"))",
+      "  #v(0.5em)",
+      "  #block(text(size: 10pt, \"${4:Date}\"))",
+      "]",
+      "",
+      "#outline(indent: true)",
+      "",
+      "#pagebreak()",
+      "",
+      "= Introduction",
+      "${5:Introduction content}",
+      "",
+      "= Background",
+      "${6:Background content}",
+      "",
+      "= Methodology",
+      "${7:Methodology content}",
+      "",
+      "= Results",
+      "${8:Results content}",
+      "",
+      "= Conclusion",
+      "${9:Conclusion content}",
+      "",
+      "= References",
+      "#bibliography(\"${10:references.bib}\")",
+      "$0"
+    ],
+    "description": "Academic article template"
+  }
+}

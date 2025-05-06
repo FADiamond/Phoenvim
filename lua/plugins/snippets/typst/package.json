@@ -1,0 +1,13 @@
+{
+  "name": "typst-snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": [
+          "typst"
+        ],
+        "path": "./snippets.json"
+      }
+    ]
+  }
+}
