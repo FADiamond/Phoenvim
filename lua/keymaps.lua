@@ -16,6 +16,13 @@ vim.keymap.set("n", "<leader>m=", "<cmd>TableFormat<CR>", { desc = "Format markd
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left in visual mode" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right in visual mode" })
 
+-- Dart
+vim.keymap.set('n', '<leader>ff', ':FlutterRun<CR>', { desc = "[F]lutter [R]un"})
+vim.keymap.set('n', '<leader>fq', ':FlutterQuit<CR>', { desc = "[F]lutter [Q]uit"})
+vim.keymap.set('n', '<leader>fr', ':FlutterReload<CR>', { desc = "[F]lutter [R]eload"})
+vim.keymap.set('n', '<leader>fR', ':FlutterRestart<CR>', { desc = "[F]lutter [R]estart"})
+
+-- Java keymaps
 vim.keymap.set("n", "<leader>tc", function()
   if vim.bo.filetype == "java" then
     require("jdtls").test_class();

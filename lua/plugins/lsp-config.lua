@@ -16,9 +16,9 @@ return {
 			ensure_installed = {
 				"lua_ls",
 				"ts_ls",
-				"basedpyright",
-				"pylsp",
-				"tinymist",
+				-- "basedpyright",
+				-- "pylsp",
+				-- "tinymist",
 				"volar",
 				"html",
 				"cssls",
@@ -56,6 +56,10 @@ return {
 					-- Your custom nvim-java configuration goes here
 				})
 			end
+
+			-- lspconfig.dartls.setup({
+			-- 	capabilities = capabilities,
+			-- })
 
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,

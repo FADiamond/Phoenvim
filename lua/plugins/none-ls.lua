@@ -12,10 +12,10 @@ return {
 			ensure_installed = {
 				"prettier",
 				"stylua",
-				"black",
-				"isort",
+				-- "black",
+				-- "isort",
 				"eslint_d",
-				"typstfmt",
+				-- "typstfmt",
 			},
 			automatic_installation = true,
 		})
