@@ -23,6 +23,18 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- vim.api.nvim_create_autocmd("VimLeavePre", {
+--   pattern = "dart",
+--   callback = function ()
+--     -- local flutter_running = vim.fn.exists("g:flutter_tools_running") == 1 and vim.g.flutter_tools_running
+--     -- if flutter_running then
+--     --   -- Stop the Flutter app
+--       vim.cmd("FlutterQuit")
+--     -- end
+--   end,
+--   desc = "Quit Flutter app when exiting Neovim"
+-- })
+
 -- vim.cmd [[
 --     augroup jdtls_lsp
 --         autocmd!

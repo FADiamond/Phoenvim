@@ -14,16 +14,32 @@ return {
 		-- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
 		-- - sd'   - [S]urround [D]elete [']quotes
 		-- - sr)'  - [S]urround [R]eplace [)] [']
-		require("mini.surround").setup()
+		require("mini.surround").setup({
+			mappings = {
+				add = "za", -- Add surrounding in Normal and Visual modes
+				delete = "zd", -- Delete surrounding
+				find = "zf", -- Find surrounding (to the right)
+				find_left = "zF", -- Find surrounding (to the left)
+				highlight = "zh", -- Highlight surrounding
+				replace = "zr", -- Replace surrounding
+				update_n_lines = "zn", -- Update `n_lines`
+			},
+		})
 
 		require("mini.move").setup()
 
-		require('mini.bufremove').setup()
+		require("mini.bufremove").setup()
 
 		require("mini.sessions").setup()
 
 		-- ... and there is more!
 		--  Check out: https://github.com/echasnovski/mini.nvim
+		vim.keymap.set(
+			"n",
+			"<leader>bd",
+			'<cmd>lua require("mini.bufremove").delete(0, false)<cr>',
+			{ desc = "Delete current buffer" }
+		)
 	end,
 	mappings = {
 		-- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.

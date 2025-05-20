@@ -32,6 +32,8 @@ return {
 			},
 		},
 		config = function()
+
+
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 			vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
@@ -73,10 +75,15 @@ return {
 						require("telescope.themes").get_dropdown({}),
 					},
 				},
+				defaults = {
+					path_display = {"truncate"}
+				}
 			})
 			pcall(telescope.load_extension, "ui-select")
 			pcall(telescope.load_extension, "fzf")
 			pcall(telescope.load_extension, "harpoon")
+			pcall(telescope.load_extension, "flutter")
+
 
 			vim.keymap.set("n", "<leader>hm", function()
 				telescope.extensions.harpoon.marks()

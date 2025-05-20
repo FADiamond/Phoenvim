@@ -76,10 +76,18 @@ return {
 				{
 					name = "nightwolf",
 					colorscheme = "nightwolf",
+				},
+				{
+					name = "Tokyo Night",
+					colorscheme = "tokyonight"
+				},
+				{
+					name = "Kanagawa",
+					colorscheme = "kanagawa"
 				}
 			},
 			livePreview = true,
-		})
+})
 		-- local themes_path = vim.fn.stdpath("config") .. "/lua/plugins/themes.lua"
 		-- local themes_file = loadfile(themes_path)
 		--

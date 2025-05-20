@@ -49,6 +49,7 @@ return { -- Useful plugin to show you pending keybinds.
 			{ "<leader>o", group = "[O]bsidian" },
 		-- 	{ "<leader>r", group = "[R]ename" },
 			{ "<leader>s", group = "[S]earch" },
+			{ "<leader>f", group = "[F]lutter" },
 		-- 	{ "<leader>w", group = "[W]orkspace" },
 			{ "<leader>J", group = "[J]ava" },
 			{ "<leader>t", group = "[T]oggle" },

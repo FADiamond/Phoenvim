@@ -16,6 +16,10 @@ vim.keymap.set("n", "<leader>m=", "<cmd>TableFormat<CR>", { desc = "Format markd
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left in visual mode" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right in visual mode" })
 
+vim.keymap.set("n", "<leader>bd", ":bd<CR>", { desc = "[B]uffer [D]elete"})
+
+
+
 -- Dart
 vim.keymap.set('n', '<leader>ff', ':FlutterRun<CR>', { desc = "[F]lutter [R]un"})
 vim.keymap.set('n', '<leader>fq', ':FlutterQuit<CR>', { desc = "[F]lutter [Q]uit"})

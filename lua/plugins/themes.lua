@@ -67,8 +67,19 @@ return {
 		opts = {},
 		config = function()
 			require("nightwolf").setup({
-				theme = "gray"
+				theme = "gray",
 			})
 		end,
+	},
+	{
+		"folke/tokyonight.nvim",
+		name = "tokyonight",
+		lazy = false,
+		priority = 1000,
+		opts = {},
+	},
+	{
+		"rebelot/kanagawa.nvim",
+		name = "kanagawa"
 	},
 }

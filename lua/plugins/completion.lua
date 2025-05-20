@@ -20,7 +20,9 @@ return {
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
-			require("luasnip.loaders.from_vscode").lazy_load()
+			require("luasnip.loaders.from_vscode").lazy_load({
+				paths = { "./lua/plugins/snippets/flutter-riverpod-snippets" },
+			})
 			cmp.register_source("easy-dotnet", require("easy-dotnet").package_completion_source)
 
 			cmp.setup({
