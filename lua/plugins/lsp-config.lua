@@ -53,7 +53,7 @@ return {
 			-- 	local mason_registry = require("mason-registry")
 			-- 	local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
 			-- .. "/node_modules/@vue/language-server"
-			--
+
 			vim.keymap.set("n", "<leader>tn", function()
 				require("nvim-navbuddy").open()
 			end, { desc = "[T]oggle [N]avbuddy" })
@@ -212,16 +212,33 @@ return {
 			})
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
+			vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, { desc = "[G]o to [D]eclaration" })
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "[G]o to [D]efinition" })
+			vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { desc = "[G]o to [T]ype Definition" })
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { desc = "[G]o to [R]eferences" })
-			-- vim.keymap.set("n", "<leader>gi", vim.lsp.buf.go_to_implementation(), { desc = "[G]o to [I]mplementations" })
+			vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { desc = "[G]o to [I]mplementations" })
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ctions" })
 			vim.keymap.set({ "n", "v" }, "<leader>cr", vim.lsp.buf.rename, { desc = "[C]ode [R]ename" })
+			vim.keymap.set("n", "<leader>cs", vim.lsp.buf.signature_help, { desc = "[C]ode [S]ignature help" })
+			vim.keymap.set("n", "<leader>cic", vim.lsp.buf.incoming_calls, { desc = "[C]ode [I]ncoming [C]alls" })
+			vim.keymap.set("n", "<leader>coc", vim.lsp.buf.outgoing_calls, { desc = "[C]ode [O]utgoing [C]alls" })
+
+			local border = {
+				{ "╭", "FloatBorder" },
+				{ "─", "FloatBorder" },
+				{ "┐", "FloatBorder" },
+				{ "│", "FloatBorder" },
+				{ "┘", "FloatBorder" },
+				{ "─", "FloatBorder" },
+				{ "└", "FloatBorder" },
+				{ "│", "FloatBorder" },
+			}
 
 			vim.diagnostic.config({
 				underline = true,
 				sings = true,
 				virtual_text = false,
+				-- virtual_text = { current_line = true },  only added in neovim v11.1
 				update_in_insert = true,
 				float = {
 					source = true,
@@ -231,8 +248,9 @@ return {
 
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 				-- Use a sharp border with `FloatBorder` highlights
-				border = "single",
+				border = "rounded"
 			})
+
 
 			vim.g.diagnostics_virtual_text_enabled = false
 			vim.keymap.set("n", "<leader>tv", function()
@@ -289,4 +307,16 @@ return {
 			-- 			end
 		end,
 	},
+	-- {
+	-- 	"ray-x/lsp_signature.nvim",
+	-- 	event = "InsertEnter",
+	-- 	opts = {
+	-- 		bind = true,
+	-- 		handler_opts = {
+	-- 			border = "rounded",
+	-- 		},
+	-- 	},
+	-- 	-- or use config
+	-- 	-- config = function(_, opts) require'lsp_signature'.setup({you options}) end
+	-- },
 }

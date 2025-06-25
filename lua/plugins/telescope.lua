@@ -4,47 +4,100 @@ return {
 		tag = "0.1.8",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			{
-				"ThePrimeagen/harpoon",
-				-- Normal Harpoon config
-				config = function()
-					local mark = require("harpoon.mark")
-					local ui = require("harpoon.ui")
-
-					-- Example Harpoon keymaps
-					vim.keymap.set("n", "<leader>ha", mark.add_file, { desc = "Harpoon: Add file" })
-					vim.keymap.set("n", "<leader>hh", ui.toggle_quick_menu, { desc = "Harpoon: Toggle menu" })
-
-					-- Jump to specific marks
-					vim.keymap.set("n", "<leader>h1", function()
-						ui.nav_file(1)
-					end, { desc = "Harpoon: Go to mark 1" })
-					vim.keymap.set("n", "<leader>h2", function()
-						ui.nav_file(2)
-					end, { desc = "Harpoon: Go to mark 2" })
-					vim.keymap.set("n", "<leader>h3", function()
-						ui.nav_file(3)
-					end, { desc = "Harpoon: Go to mark 3" })
-					vim.keymap.set("n", "<leader>h4", function()
-						ui.nav_file(4)
-					end, { desc = "Harpoon: Go to mark 4" })
-				end,
-			},
 		},
 		config = function()
+			local function get_path_and_tail(filename)
+				local utils = require("telescope.utils")
+				local bufname_tail = utils.path_tail(filename)
+				local path_without_tail = require("plenary.strings").truncate(filename, #filename - #bufname_tail, "")
+				local path_to_display = utils.transform_path({
+					path_display = { "truncate" },
+				}, path_without_tail)
+				return bufname_tail, path_to_display
+			end
 
+			-- Custom entry maker for filename-first display
+			local function create_filename_first_entry_maker(opts)
+				local make_entry = require("telescope.make_entry")
+				local strings = require("plenary.strings")
+				local utils = require("telescope.utils")
+				local entry_display = require("telescope.pickers.entry_display")
+				local devicons = require("nvim-web-devicons")
+
+				local def_icon = devicons.get_icon("fname", { default = true })
+				local iconwidth = strings.strdisplaywidth(def_icon)
+
+				local entry_make = make_entry.gen_from_file(opts)
+
+				return function(line)
+					local entry = entry_make(line)
+					local displayer = entry_display.create({
+						separator = "",
+						items = {
+							{ width = iconwidth },
+							{ width = nil },
+							{ remaining = true },
+						},
+					})
+
+					entry.display = function(et)
+						local tail_raw, path_to_display = get_path_and_tail(et.value)
+						local tail = tail_raw .. " "
+						local icon, iconhl = utils.get_devicons(tail_raw)
+
+						return displayer({
+							{ icon, iconhl },
+							tail,
+							{ path_to_display, "TelescopeResultsComment" },
+						})
+					end
+
+					-- Heavily prioritize filename in search by repeating it
+					local tail_raw, path_to_display = get_path_and_tail(entry.value)
+					-- Repeat filename multiple times to dominate fuzzy search scoring
+					local filename_priority = tail_raw .. " " .. tail_raw .. " " .. tail_raw .. " " .. tail_raw .. " "
+					entry.ordinal = filename_priority .. entry.value
+
+					return entry
+				end
+			end
 
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 			vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-			vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
-			vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
+			-- vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
+			vim.keymap.set("n", "<leader>sf", function()
+				require("telescope").extensions.smart_open.smart_open({
+					cwd_only = true,
+				})
+			end, { desc = "[S]earch [F]ile Smart" })
+			vim.keymap.set("n", "<leader>sF", function()
+				builtin.find_files({ entry_maker = create_filename_first_entry_maker({}) })
+			end, { desc = "[S]earch [F]iles" })
+			vim.keymap.set("n", "<leader>st", builtin.builtin, { desc = "[S]earch Select [T]elescope" })
 			vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-			vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+			vim.keymap.set("n", "<leader>sG", builtin.live_grep, { desc = "[S]earch by [G]rep" })
 			vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+			vim.keymap.set("n", "<leader><leader>", function()
+				builtin.buffers({
+					entry_maker = require("rc.telescope.my_make_entry").gen_from_buffer_like_leaderf(),
+				})
+			end, { desc = "[ ] Find existing buffers" })
+			local fuzzy_search = function()
+				builtin.grep_string({ shorten_path = true, word_match = "-w", only_sort_text = true, search = "" })
+			end
+			vim.keymap.set("n", "<leader>sg", fuzzy_search, { desc = "[S]earch Fuzzily [G]rep" })
+
+			-- vim.keymap.set("n", "<leader>sF", function()
+			-- 	builtin.find_files({
+			-- 		prompt_title = "Find All Files (No Ignore)",
+			-- 		no_ignore = true,
+			-- 		hidden = true,
+			-- 		file_ignore_patterns = {}, -- Clear any file ignore patterns
+			-- 	})
+			-- end, { desc = "[S]earch Every [F]ile" })
 
 			vim.keymap.set("n", "<leader>/", function()
 				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
@@ -69,21 +122,26 @@ return {
 		"nvim-telescope/telescope-ui-select.nvim",
 		config = function()
 			local telescope = require("telescope")
+			-- vim.api.nvim_set_hl(0, "TelescopePathSeparator", { fg = "#6c7086", italic = true })
+			vim.api.nvim_set_hl(0, "TelescopePreviewDirectory", {
+				fg = "#ffffff",
+				bold = true,
+			})
 			telescope.setup({
 				extensions = {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown({}),
 					},
+					smart_open = {
+						result_limit = 100, -- Default is 40
+					},
 				},
-				defaults = {
-					path_display = {"truncate"}
-				}
 			})
 			pcall(telescope.load_extension, "ui-select")
 			pcall(telescope.load_extension, "fzf")
 			pcall(telescope.load_extension, "harpoon")
 			pcall(telescope.load_extension, "flutter")
-
+			pcall(telescope.load_extension, "remote-sshfs")
 
 			vim.keymap.set("n", "<leader>hm", function()
 				telescope.extensions.harpoon.marks()
@@ -91,48 +149,33 @@ return {
 		end,
 	},
 	{
-		"ThePrimeagen/harpoon",
-		branch = "harpoon2",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		"benfowler/telescope-luasnip.nvim",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"L3MON4D3/LuaSnip",
+		},
 		config = function()
-			local mark = require("harpoon.mark")
-			local ui = require("harpoon.ui")
+			require("telescope").load_extension("luasnip")
 
-			-- Keymaps to add file, show menu, etc.
-			vim.keymap.set("n", "<leader>ha", mark.add_file, { desc = "[H]arpoon [A]dd file" })
-			vim.keymap.set("n", "<leader>hh", ui.toggle_quick_menu, { desc = "[H]arpoo Toggle menu" })
-
-			-- Jump directly to specific marks
-			vim.keymap.set("n", "<leader>h1", function()
-				ui.nav_file(1)
-			end, { desc = "Harpoon: Go to mark 1" })
-			vim.keymap.set("n", "<leader>h2", function()
-				ui.nav_file(2)
-			end, { desc = "Harpoon: Go to mark 2" })
-			vim.keymap.set("n", "<leader>h3", function()
-				ui.nav_file(3)
-			end, { desc = "Harpoon: Go to mark 3" })
-			vim.keymap.set("n", "<leader>h4", function()
-				ui.nav_file(4)
-			end, { desc = "Harpoon: Go to mark 4" })
+			-- Add a keybinding to browse snippets
+			vim.keymap.set("n", "<leader>sS", "<cmd>Telescope luasnip<CR>", {
+				desc = "[S]earch [S]nippets",
+			})
 		end,
 	},
-	-- lua/plugins/snippets-browse.lua
 	{
-		{
-			"benfowler/telescope-luasnip.nvim",
-			dependencies = {
-				"nvim-telescope/telescope.nvim",
-				"L3MON4D3/LuaSnip",
-			},
-			config = function()
-				require("telescope").load_extension("luasnip")
-
-				-- Add a keybinding to browse snippets
-				vim.keymap.set("n", "<leader>sS", "<cmd>Telescope luasnip<CR>", {
-					desc = "[S]earch [S]nippets",
-				})
-			end,
+		"danielfalk/smart-open.nvim",
+		branch = "0.2.x",
+		config = function()
+			require("telescope").load_extension("smart_open")
+		end,
+		dependencies = {
+			-- NOTE: sqlite3 must be installed
+			"kkharji/sqlite.lua",
+			-- Only required if using match_algorithm fzf
+			-- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+			-- Optional.  If installed, native fzy will be used when match_algorithm is fzy
+			-- { "nvim-telescope/telescope-fzy-native.nvim" },
 		},
 	},
 }

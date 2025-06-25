@@ -1,11 +1,17 @@
 return {
   "rmagatti/auto-session",
+  ---enables autocomplete for opts
+  ---@module "auto-session"
+  ---@type AutoSession.Config
   config = function()
-    local auto_session = require("auto-session")
-
-    auto_session.setup({
+    require("auto-session").setup({
       auto_restore_enabled = false,
       auto_session_suppress_dirs = { "~/", "~/Dev/", "~/Downloads", "~/Documents", "~/Desktop/" },
+      post_restore_cmds = {
+        function ()
+          require("arrow.persist").load_cache_file()
+        end
+      }
     })
 
     local keymap = vim.keymap

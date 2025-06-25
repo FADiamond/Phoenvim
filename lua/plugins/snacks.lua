@@ -13,6 +13,13 @@ return {
     notifier = { enabled = true },
     quickfile = { enabled = true },
     scope = { enabled = true },
+    scroll = {
+      ---@class snacks.animate.Config
+      animate = {
+        -- duration = { step = 50, total = 250 },
+        easing = "outCirc",
+      }
+    },
     statuscolumn = { enabled = true },
     words = { enabled = true },
   },

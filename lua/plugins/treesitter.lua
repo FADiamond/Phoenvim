@@ -1,5 +1,6 @@
 return {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
     build = ":TSUpdate",
     config = function()
         local config = require("nvim-treesitter.configs")
@@ -20,10 +21,14 @@ return {
                 "markdown",
                 "markdown_inline",
                 "tsx",
+                "bash",
+                "diff",
+                -- Git related
             },
             highlight = { enable = true },
             indent = { enable = true },
-            ignore_install = { "dart" }
+            ignore_install = { "dart", "gitcommit", "vimdoc", "ssh_config", },
+            disable = { "gitcommit", "vimdoc", "ssh_config" }
         })
     end,
 }

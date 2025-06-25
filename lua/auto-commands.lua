@@ -23,6 +23,33 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "*.dart",
+  callback = function()
+    -- Only run if file contains @riverpod annotation
+    local lines = vim.api.nvim_buf_get_lines(0, 0, 50, false) -- Check first 50 lines
+    local has_riverpod = false
+    
+    for _, line in ipairs(lines) do
+      if line:match("@riverpod") then
+        has_riverpod = true
+        break
+      end
+    end
+    
+    if has_riverpod then
+      require('snacks').notify("Auto-building Riverpod providers...", { type = "info", timeout = 2000 })
+      vim.fn.jobstart("dart run build_runner build", {
+        on_exit = function(_, exit_code)
+          if exit_code == 0 then
+            require('snacks').notify("Auto-build completed!", { type = "success", timeout = 2000 })
+          end
+        end
+      })
+    end
+  end,
+})
+
 -- vim.api.nvim_create_autocmd("VimLeavePre", {
 --   pattern = "dart",
 --   callback = function ()

@@ -13,6 +13,7 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 1000
 vim.opt.list = false
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
 
 vim.opt.inccommand = 'split'
 vim.opt.cursorline = true

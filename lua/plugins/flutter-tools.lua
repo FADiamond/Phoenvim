@@ -18,7 +18,7 @@ return {
 					enabled = true,
 				},
 				lsp = {
-					capabilities = capabilities,
+					-- capabilities = capabilities,
 					color = { -- show the derived colours for dart variables
 						enabled = false, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
 						background = false, -- highlight the background
@@ -36,13 +36,24 @@ return {
 						renamefileswithclasses = "prompt",
 						updateimportsonrename = true,
 						enablesnippets = true,
+						dart = {
+							experimentalRefactors = true,
+							previewLsp = true,
+						},
+					},
+					handlers = {
+						["textDocument/publishDiagnostics"] = function(...)
+							vim.lsp.diagnostic.on_publish_diagnostics(...)
+							-- Ensure diagnostics from custom_lint are shown
+							vim.diagnostic.setqflist({ open = false })
+						end,
 					},
 				},
 				decorations = {
 					statusline = {
 						device = true,
 						project_config = true,
-					}
+					},
 				},
 				debugger = {
 					enabled = false,
@@ -96,12 +107,48 @@ return {
 				},
 			})
 
-			vim.keymap.set("n", "<leader>ff", ":FlutterRun<CR>", { desc = "[F]lutter [R]un" })
+			vim.keymap.set("n", "<leader>ffd", ":FlutterRun<CR>", { desc = "[F]lutter [R]un [D]ebug mode" })
+			vim.keymap.set("n", "<leader>ffr", ":FlutterRun --release<CR>", { desc = "[F]lutter [R]un [R]elease mode" })
+			vim.keymap.set("n", "<leader>ffp", ":FlutterRun --profile<CR>", { desc = "[F]lutter [R]un [P]rofile mode" })
 			vim.keymap.set("n", "<leader>fq", ":FlutterQuit<CR>", { desc = "[F]lutter [Q]uit" })
 			vim.keymap.set("n", "<leader>fr", ":FlutterReload<CR>", { desc = "[F]lutter [R]eload" })
 			vim.keymap.set("n", "<leader>fR", ":FlutterRestart<CR>", { desc = "[F]lutter [R]estart" })
 			vim.keymap.set("n", "<leader>fo", ":FlutterOutlineToggle<CR>", { desc = "[F]lutter [O]utline toggle" })
 			vim.keymap.set("n", "<leader>fl", ":FlutterLogToggle<CR>", { desc = "[F]lutter [L]og toggle" })
+			vim.keymap.set("n", "<leader>fd", ":FlutterDevices<CR>", { desc = "[F]lutter [D]evices" })
+			vim.keymap.set("n", "<leader>fg", function()
+				local output = {}
+
+				require("snacks").notify("Running build_runner build...", { type = "info" })
+
+				vim.fn.jobstart("dart run build_runner build", {
+					on_stdout = function(_, data)
+						if data then
+							vim.list_extend(output, data)
+						end
+					end,
+					on_stderr = function(_, data)
+						if data then
+							vim.list_extend(output, data)
+						end
+					end,
+					on_exit = function(_, exit_code)
+						local result = table.concat(output, "\n")
+
+						if exit_code == 0 then
+							require("snacks").notify("Build completed!\n" .. result, {
+								type = "success",
+								timeout = 5000,
+							})
+						else
+							require("snacks").notify("Build failed!\n" .. result, {
+								type = "error",
+								timeout = 10000,
+							})
+						end
+					end,
+				})
+			end, { desc = "[F]lutter [G]enerate" })
 		end,
 	},
 	{

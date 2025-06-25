@@ -32,6 +32,10 @@ return {
 
 		require("mini.sessions").setup()
 
+		require("mini.files").setup()
+
+		-- require("mini.git").setup()
+
 		-- ... and there is more!
 		--  Check out: https://github.com/echasnovski/mini.nvim
 		vim.keymap.set(
@@ -39,6 +43,12 @@ return {
 			"<leader>bd",
 			'<cmd>lua require("mini.bufremove").delete(0, false)<cr>',
 			{ desc = "Delete current buffer" }
+		)
+
+		vim.keymap.set(
+			"n", "<leader>mf",
+			"<CMD>lua MiniFiles.open()<CR>",
+			{ desc = "[M]ini [F]ile explorer"}
 		)
 	end,
 	mappings = {
