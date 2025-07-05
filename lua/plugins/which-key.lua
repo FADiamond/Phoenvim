@@ -48,7 +48,7 @@ return { -- Useful plugin to show you pending keybinds.
 			{ "<leader>d", group = "[D]ebug" },
 			{ "<leader>o", group = "[O]bsidian" },
 			{ "<leader>G", group = "[G]it" },
-		-- 	{ "<leader>r", group = "[R]ename" },
+			-- 	{ "<leader>r", group = "[R]ename" },
 			{ "<leader>s", group = "[S]earch" },
 			{ "<leader>f", group = "[F]lutter" },
 			{ "<leader>w", group = "[W]orkspace" },
@@ -57,8 +57,10 @@ return { -- Useful plugin to show you pending keybinds.
 			{ "<leader>h", group = "[H]arpoon and Git [H]unk", mode = { "n", "v" } },
 			{ "<leader>g", group = "[G]o to" },
 			{ "<leader>b", group = "[B]uffer" },
+			{ "<leader>a", group = "ai" },
+			{ "<leader>gm", group = "Copilot Chat" },
 		},
-		config = function ()
+		config = function()
 			local wk = require("which-key")
 			wk.setup()
 
@@ -69,8 +71,6 @@ return { -- Useful plugin to show you pending keybinds.
 				["<C-e>"] = { "Abort/close completion" },
 				["<CR>"] = { "Confirm completion" },
 			})
-
-
-		end
+		end,
 	},
 }

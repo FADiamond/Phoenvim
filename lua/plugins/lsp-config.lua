@@ -75,6 +75,22 @@ return {
 			-- lspconfig.dartls.setup({
 			-- 	capabilities = capabilities,
 			-- })
+			--
+			-- lspconfig.dcmls.setup({
+			-- 	capabilities = capabilities,
+			-- 	cmd = {
+			-- 		"dcm",
+			-- 		"start-server",
+			-- 	},
+			-- 	filetypes = { "dart", "yaml" },
+			-- 	settings = {
+			-- 		dart = {
+			-- 			analysisExcludedFolders = {
+			-- 				vim.fn.expand("$Home/.pub-cache"),
+			-- 			},
+			-- 		},
+			-- 	},
+			-- })
 
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,

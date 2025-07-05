@@ -10,6 +10,7 @@ return {
 			options = {
 				-- theme = "onedark",
 				extensions = { "neo-tree" },
+				globalstatus = true,
 			},
 			sections = {
 				-- lualine_b = { "branch", "diff", "diagnostics", arrow_status },
