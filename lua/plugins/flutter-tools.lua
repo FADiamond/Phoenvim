@@ -41,13 +41,6 @@ return {
 							previewLsp = true,
 						},
 					},
-					handlers = {
-						["textDocument/publishDiagnostics"] = function(...)
-							vim.lsp.diagnostic.on_publish_diagnostics(...)
-							-- Ensure diagnostics from custom_lint are shown
-							vim.diagnostic.setqflist({ open = false })
-						end,
-					},
 				},
 				decorations = {
 					statusline = {
@@ -107,16 +100,16 @@ return {
 				},
 			})
 
-			vim.keymap.set("n", "<leader>ffd", ":FlutterRun<CR>", { desc = "[F]lutter [R]un [D]ebug mode" })
-			vim.keymap.set("n", "<leader>ffr", ":FlutterRun --release<CR>", { desc = "[F]lutter [R]un [R]elease mode" })
-			vim.keymap.set("n", "<leader>ffp", ":FlutterRun --profile<CR>", { desc = "[F]lutter [R]un [P]rofile mode" })
-			vim.keymap.set("n", "<leader>fq", ":FlutterQuit<CR>", { desc = "[F]lutter [Q]uit" })
-			vim.keymap.set("n", "<leader>fr", ":FlutterReload<CR>", { desc = "[F]lutter [R]eload" })
-			vim.keymap.set("n", "<leader>fR", ":FlutterRestart<CR>", { desc = "[F]lutter [R]estart" })
-			vim.keymap.set("n", "<leader>fo", ":FlutterOutlineToggle<CR>", { desc = "[F]lutter [O]utline toggle" })
-			vim.keymap.set("n", "<leader>fl", ":FlutterLogToggle<CR>", { desc = "[F]lutter [L]og toggle" })
-			vim.keymap.set("n", "<leader>fd", ":FlutterDevices<CR>", { desc = "[F]lutter [D]evices" })
-			vim.keymap.set("n", "<leader>fg", function()
+			vim.keymap.set("n", "<leader>Ffd", ":FlutterRun<CR>", { desc = "[F]lutter [R]un [D]ebug mode" })
+			vim.keymap.set("n", "<leader>Ffr", ":FlutterRun --release<CR>", { desc = "[F]lutter [R]un [R]elease mode" })
+			vim.keymap.set("n", "<leader>Ffp", ":FlutterRun --profile<CR>", { desc = "[F]lutter [R]un [P]rofile mode" })
+			vim.keymap.set("n", "<leader>Fq", ":FlutterQuit<CR>", { desc = "[F]lutter [Q]uit" })
+			vim.keymap.set("n", "<leader>Fr", ":FlutterReload<CR>", { desc = "[F]lutter [R]eload" })
+			vim.keymap.set("n", "<leader>FR", ":FlutterRestart<CR>", { desc = "[F]lutter [R]estart" })
+			vim.keymap.set("n", "<leader>Fo", ":FlutterOutlineToggle<CR>", { desc = "[F]lutter [O]utline toggle" })
+			vim.keymap.set("n", "<leader>Fl", ":FlutterLogToggle<CR>", { desc = "[F]lutter [L]og toggle" })
+			vim.keymap.set("n", "<leader>Fd", ":FlutterDevices<CR>", { desc = "[F]lutter [D]evices" })
+			vim.keymap.set("n", "<leader>Fg", function()
 				local output = {}
 
 				require("snacks").notify("Running build_runner build...", { type = "info" })

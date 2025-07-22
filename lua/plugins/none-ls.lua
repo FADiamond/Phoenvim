@@ -10,7 +10,7 @@ return {
 
 		require("mason-null-ls").setup({
 			ensure_installed = {
-				"prettier",
+				-- "prettier",
 				"stylua",
 				-- "black",
 				-- "isort",
@@ -29,12 +29,22 @@ return {
 				null_ls.builtins.diagnostics.pylint.with({
 					command = "pylint",
 					args = { "--rcfile=pylintrc.toml", "--output-format=json", "-" },
+					filetypes = {
+						"python"
+					}
 				}),
 				-- null_ls.builtins.diagnostics.pylint,
 				-- null_ls.builtins.formatting.ruff,
-				null_ls.builtins.formatting.black,
-				null_ls.builtins.formatting.isort,
-
+				null_ls.builtins.formatting.black.with({
+					filetypes = {
+						"python"
+					}
+				}),
+				null_ls.builtins.formatting.isort.with({
+					filetypes = {
+						"python"
+					}
+				}),
 				-- Javascript/TypeScript/Vue
 				null_ls.builtins.formatting.prettier.with({
 					filetypes = {
@@ -50,6 +60,7 @@ return {
 						"yaml",
 						"markdown",
 					},
+					disabled_filetypes = { "dart" },
 					prefer_local = "node_modules/.bin",
 				}),
 
@@ -89,8 +100,6 @@ return {
 						"vue",
 					},
 				}),
-				-- Typst
-				null_ls.builtins.formatting.typstfmt,
 			},
 		})
 		vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { desc = "[C]ode [F]ormat" })

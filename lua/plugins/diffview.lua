@@ -40,8 +40,8 @@ return {
 				},
 				merge_tool = {
 					-- Config for conflicted files in diff views during a merge or rebase.
-					layout = "diff3_horizontal",
-					disable_diagnostics = true, -- Temporarily disable diagnostics for diff buffers while in the view.
+					layout = "diff3_mixed",
+					disable_diagnostics = false, -- Temporarily disable diagnostics for diff buffers while in the view.
 					winbar_info = true, -- See |diffview-config-view.x.winbar_info|
 				},
 				file_history = {
@@ -52,7 +52,7 @@ return {
 				},
 			},
 			file_panel = {
-				listing_style = "tree", -- One of 'list' or 'tree'
+				listing_style = "list", -- One of 'list' or 'tree'
 				tree_options = { -- Only applies when listing_style is 'tree'
 					flatten_dirs = true, -- Flatten dirs that only contain one single dir
 					folder_statuses = "only_folded", -- One of 'never', 'only_folded' or 'always'.
@@ -91,7 +91,15 @@ return {
 				DiffviewOpen = {},
 				DiffviewFileHistory = {},
 			},
-			hooks = {}, -- See |diffview-config-hooks|
+			hooks = {
+				-- Hook to set window options for diff buffers
+				diff_buf_win_enter = function(bufnr, winid, ctx)
+					-- Set window-local options for diff view windows
+					vim.api.nvim_win_set_option(winid, "wrap", false)
+					vim.api.nvim_win_set_option(winid, "sidescrolloff", 8)
+					vim.api.nvim_win_set_option(winid, "sidescroll", 1)
+				end,
+			}, -- See |diffview-config-hooks|
 			keymaps = {
 				disable_defaults = false, -- Disable the default keymaps
 				view = {
@@ -141,11 +149,11 @@ return {
 					},
 					{
 						"n",
-						"<leader>e",
+						"<leader>b",
 						actions.focus_files,
 						{ desc = "Bring focus to the file panel" },
 					},
-					{ "n", "<leader>b", actions.toggle_files, { desc = "Toggle the file panel." } },
+					{ "n", "<leader>e", actions.toggle_files, { desc = "Toggle the file panel." } },
 					{
 						"n",
 						"g<C-x>",
