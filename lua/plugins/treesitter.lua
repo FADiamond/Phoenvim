@@ -1,9 +1,9 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master",
+    branch = "main",
     build = ":TSUpdate",
     config = function()
-        local config = require("nvim-treesitter.configs")
+        local config = require("nvim-treesitter")
         config.setup({
             auto_install = true,
             ensure_installed = {
@@ -27,8 +27,7 @@ return {
             },
             highlight = { enable = true },
             indent = { enable = true },
-            ignore_install = { "dart", "gitcommit", "vimdoc", "ssh_config", },
-            disable = { "gitcommit", "vimdoc", "ssh_config" }
+            ignore_install = { "dart" },
         })
     end,
 }
