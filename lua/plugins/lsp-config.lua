@@ -227,17 +227,61 @@ return {
 				capabilities = capabilities,
 			})
 
+			local function goto_definition_split()
+				vim.cmd("split")
+				vim.lsp.buf.definition()
+			end
+
+			local function goto_definition_vsplit()
+				vim.cmd("vsplit")
+				vim.lsp.buf.definition()
+			end
+
+			local function goto_declaration_split()
+				vim.cmd("split")
+				vim.lsp.buf.declaration()
+			end
+
+			local function goto_declaration_vsplit()
+				vim.cmd("vsplit")
+				vim.lsp.buf.declaration()
+			end
+
+			local function goto_type_definition_split()
+				vim.cmd("split")
+				vim.lsp.buf.type_definition()
+			end
+
+			local function goto_type_definition_vsplit()
+				vim.cmd("vsplit")
+				vim.lsp.buf.type_definition()
+			end
+
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
+
+			-- Regular (current buffer)
 			vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, { desc = "[G]o to [D]eclaration" })
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "[G]o to [D]efinition" })
 			vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { desc = "[G]o to [T]ype Definition" })
+			
+			-- Horizontal splits
+			vim.keymap.set("n", "<leader>ghD", goto_declaration_split, { desc = "[G]o to [D]eclaration in [S]plit" })
+			vim.keymap.set("n", "<leader>ghd", goto_definition_split, { desc = "[G]o to [D]efinition in [S]plit" })
+			vim.keymap.set("n", "<leader>ght", goto_type_definition_split, { desc = "[G]o to [T]ype Definition in [S]plit" })
+
+			-- Vertical splits
+			vim.keymap.set("n", "<leader>gvD", goto_declaration_vsplit, { desc = "[G]o to [D]eclaration in [V]split" })
+			vim.keymap.set("n", "<leader>gvd", goto_definition_vsplit, { desc = "[G]o to [D]efinition in [V]split" })
+			vim.keymap.set("n", "<leader>gvt", goto_type_definition_vsplit, { desc = "[G]o to [T]ype Definition in [V]split" })
+
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { desc = "[G]o to [R]eferences" })
-			vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { desc = "[G]o to [I]mplementations" })
+			vim.keymap.set("n", "<leader>gI", vim.lsp.buf.implementation, { desc = "[G]o to [I]mplementations" })
+			vim.keymap.set("n", "<leader>gic", vim.lsp.buf.incoming_calls, { desc = "[G]o to [I]ncoming [C]alls" })
+			vim.keymap.set("n", "<leader>goc", vim.lsp.buf.outgoing_calls, { desc = "[G]o to [O]utgoing [C]alls" })
+
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ctions" })
 			vim.keymap.set({ "n", "v" }, "<leader>cr", vim.lsp.buf.rename, { desc = "[C]ode [R]ename" })
 			vim.keymap.set("n", "<leader>cs", vim.lsp.buf.signature_help, { desc = "[C]ode [S]ignature help" })
-			vim.keymap.set("n", "<leader>cic", vim.lsp.buf.incoming_calls, { desc = "[C]ode [I]ncoming [C]alls" })
-			vim.keymap.set("n", "<leader>coc", vim.lsp.buf.outgoing_calls, { desc = "[C]ode [O]utgoing [C]alls" })
 
 			local border = {
 				{ "╭", "FloatBorder" },
@@ -264,9 +308,8 @@ return {
 
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 				-- Use a sharp border with `FloatBorder` highlights
-				border = "rounded"
+				border = "rounded",
 			})
-
 
 			vim.g.diagnostics_virtual_text_enabled = false
 			vim.keymap.set("n", "<leader>tv", function()

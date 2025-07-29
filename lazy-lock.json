@@ -56,6 +56,7 @@
   "nvim-jdtls": { "branch": "master", "commit": "2f7bff9b8d2ee1918b36ca55f19547d9d335a268" },
   "nvim-lsp-file-operations": { "branch": "master", "commit": "9744b738183a5adca0f916527922078a965515ed" },
   "nvim-lspconfig": { "branch": "master", "commit": "7c8cb61b21727a473663054edec4b83633d9e442" },
+  "nvim-material-icon-v3": { "branch": "main", "commit": "89a89f7fa20330b21c93f4446bf99c20e7cea8d8" },
   "nvim-navbuddy": { "branch": "master", "commit": "a34786c77a528519f6b8a142db7609f6e387842d" },
   "nvim-navic": { "branch": "master", "commit": "d0a8c17c4dc721b00bc2ac305c6ffbb036beeb74" },
   "nvim-nio": { "branch": "master", "commit": "21f5324bfac14e22ba26553caf69ec76ae8a7662" },
