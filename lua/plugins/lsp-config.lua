@@ -72,26 +72,6 @@ return {
 				})
 			end
 
-			-- lspconfig.dartls.setup({
-			-- 	capabilities = capabilities,
-			-- })
-			--
-			-- lspconfig.dcmls.setup({
-			-- 	capabilities = capabilities,
-			-- 	cmd = {
-			-- 		"dcm",
-			-- 		"start-server",
-			-- 	},
-			-- 	filetypes = { "dart", "yaml" },
-			-- 	settings = {
-			-- 		dart = {
-			-- 			analysisExcludedFolders = {
-			-- 				vim.fn.expand("$Home/.pub-cache"),
-			-- 			},
-			-- 		},
-			-- 	},
-			-- })
-
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
 			})
@@ -132,8 +112,8 @@ return {
 			})
 
 			-- vue_ls for Vue files
-			vim.lsp.enable('vue_ls')
-			vim.lsp.config('vue_ls', {
+			vim.lsp.enable("vue_ls")
+			vim.lsp.config("vue_ls", {
 				capabilities = capabilities,
 				on_attach = on_attach,
 				filetypes = { "vue" },
@@ -258,22 +238,34 @@ return {
 				vim.lsp.buf.type_definition()
 			end
 
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
+			vim.keymap.set("n", "K", function()
+				vim.lsp.buf.hover({ border = "rounded", max_height = 26 })
+			end, { desc = "Hover" })
 
 			-- Regular (current buffer)
 			vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, { desc = "[G]o to [D]eclaration" })
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "[G]o to [D]efinition" })
 			vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { desc = "[G]o to [T]ype Definition" })
-			
+
 			-- Horizontal splits
 			vim.keymap.set("n", "<leader>ghD", goto_declaration_split, { desc = "[G]o to [D]eclaration in [S]plit" })
 			vim.keymap.set("n", "<leader>ghd", goto_definition_split, { desc = "[G]o to [D]efinition in [S]plit" })
-			vim.keymap.set("n", "<leader>ght", goto_type_definition_split, { desc = "[G]o to [T]ype Definition in [S]plit" })
+			vim.keymap.set(
+				"n",
+				"<leader>ght",
+				goto_type_definition_split,
+				{ desc = "[G]o to [T]ype Definition in [S]plit" }
+			)
 
 			-- Vertical splits
 			vim.keymap.set("n", "<leader>gvD", goto_declaration_vsplit, { desc = "[G]o to [D]eclaration in [V]split" })
 			vim.keymap.set("n", "<leader>gvd", goto_definition_vsplit, { desc = "[G]o to [D]efinition in [V]split" })
-			vim.keymap.set("n", "<leader>gvt", goto_type_definition_vsplit, { desc = "[G]o to [T]ype Definition in [V]split" })
+			vim.keymap.set(
+				"n",
+				"<leader>gvt",
+				goto_type_definition_vsplit,
+				{ desc = "[G]o to [T]ype Definition in [V]split" }
+			)
 
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { desc = "[G]o to [R]eferences" })
 			vim.keymap.set("n", "<leader>gI", vim.lsp.buf.implementation, { desc = "[G]o to [I]mplementations" })
@@ -298,18 +290,16 @@ return {
 			vim.diagnostic.config({
 				underline = true,
 				sings = true,
-				virtual_text = false,
-				-- virtual_text = { current_line = true },  only added in neovim v11.1
+				-- virtual_text = false,
+				virtual_text = { current_line = false },
 				update_in_insert = true,
+				jump = {
+					float = true, -- TO match goto_next/previous diagnostic
+				},
 				float = {
 					source = true,
 					border = "rounded",
 				},
-			})
-
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-				-- Use a sharp border with `FloatBorder` highlights
-				border = "rounded",
 			})
 
 			vim.g.diagnostics_virtual_text_enabled = false
@@ -317,10 +307,6 @@ return {
 				vim.g.diagnostics_virtual_text_enabled = not vim.g.diagnostics_virtual_text_enabled
 				vim.diagnostic.config({ virtual_text = vim.g.diagnostics_virtual_text_enabled })
 			end, { desc = "[T]oggle diagnostics [V]irtual text" })
-
-			-- Go to next/previous diagnostic
-			vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
-			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
 
 			-- Show a floating diagnostics window
 			vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "[C]ode [D]iagnostics" })
