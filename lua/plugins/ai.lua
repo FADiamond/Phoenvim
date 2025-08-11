@@ -1,5 +1,17 @@
 return {
 	{
+		"greggh/claude-code.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- Required for git operations
+		},
+		config = function()
+			require("claude-code").setup()
+		end,
+		keys = {
+			{ "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "ClodeCode Toggle" },
+		}
+	},
+	{
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
 		event = "InsertEnter",
@@ -156,15 +168,52 @@ return {
 		---@module 'render-markdown'
 		---@type render.md.UserConfig
 		opts = {
-			file_types = { "markdown", "copilot-chat" },
+			file_types = { "markdown", "copilot-chat", "codecompanion" },
 		},
-		ft = { "markdown", "copilot-chat" },
+		ft = { "markdown", "copilot-chat", "codecompanion" },
 	},
-	-- 	"olimorris/codecompanion.nvim",
-	-- 	opts = {},
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"nvim-treesitter/nvim-treesitter",
-	-- 	},
-	-- },
+	--  {
+	--      "OXY2DEV/markview.nvim",
+	--      lazy = false,
+	--      config = function()
+	-- local presets = require("markview.presets")
+	--          require('markview').setup({
+	--              preview = {
+	--                  filetypes = { "markdown", "codecompanion" },
+	--                  ignore_buftypes = {},
+	--              },
+	--              markdown = {
+	--                  headings = presets.headings.simple,
+	-- 		tables = presets.tables.rounded
+	--              },
+	--              ui = {
+	--                  hover = {
+	--                      show_icon_column = false, -- disables the side column with icon in hover
+	--                  },
+	--              },
+	--          })
+	--      end
+	--  },
+	{
+		"olimorris/codecompanion.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		opts = {
+			strategies = {
+				chat = {
+					adapter = {
+						name = "copilot",
+						model = "claude-sonnet-4",
+					},
+				},
+			},
+			display = {
+				action_palette = {
+					provider = "snacks",
+				},
+			},
+		},
+	},
 }

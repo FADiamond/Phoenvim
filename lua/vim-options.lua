@@ -20,6 +20,9 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.opt.mouse = 'a'
 vim.opt.undofile = true
+vim.opt.undodir = vim.fn.expand("~/.undodir")
+
+vim.opt.bomb = false
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
@@ -29,7 +32,10 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
-vim.opt.conceallevel = 0
+vim.opt.conceallevel = 2
+
+-- Git options
+vim.opt.fillchars:append { diff = "╱" }
 
 -- Dart settings
 vim.g.dart_style_guide = 2

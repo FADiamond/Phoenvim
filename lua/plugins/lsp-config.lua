@@ -276,25 +276,14 @@ return {
 			vim.keymap.set({ "n", "v" }, "<leader>cr", vim.lsp.buf.rename, { desc = "[C]ode [R]ename" })
 			vim.keymap.set("n", "<leader>cs", vim.lsp.buf.signature_help, { desc = "[C]ode [S]ignature help" })
 
-			local border = {
-				{ "╭", "FloatBorder" },
-				{ "─", "FloatBorder" },
-				{ "┐", "FloatBorder" },
-				{ "│", "FloatBorder" },
-				{ "┘", "FloatBorder" },
-				{ "─", "FloatBorder" },
-				{ "└", "FloatBorder" },
-				{ "│", "FloatBorder" },
-			}
-
 			vim.diagnostic.config({
 				underline = true,
 				sings = true,
-				-- virtual_text = false,
-				virtual_text = { current_line = false },
+				virtual_text = false,
+				-- virtual_text = { current_line = true },
 				update_in_insert = true,
 				jump = {
-					float = true, -- TO match goto_next/previous diagnostic
+					float = true, -- To match goto_next/previous diagnostic
 				},
 				float = {
 					source = true,
@@ -334,23 +323,6 @@ return {
 				undercurl = true,
 				sp = "#1abc9c",
 			})
-
-			-- 			-- A table of your preferred icons (Nerd Fonts or any unicode characters)
-			-- 			local signs = {
-			-- 				Error = "", -- e.g. nf-mdi-close_circle or nf-fa-times_circle
-			-- 				Warn = "", -- e.g. nf-fa-exclamation_triangle
-			-- 				Hint = "", -- e.g. nf-fa-lightbulb_o
-			-- 				Info = "", -- e.g. nf-fa-info_circle
-			-- }
-			--
-			-- 			for type, icon in pairs(signs) do
-			-- 				local hl = "DiagnosticSign" .. type
-			-- 				vim.fn.sign_define(hl, {
-			-- 					text = icon,
-			-- 					texthl = hl, -- Use the same highlight group as the name
-			-- 					numhl = "", -- If you prefer a highlight for line numbers, define it here
-			-- 				})
-			-- 			end
 		end,
 	},
 	-- {

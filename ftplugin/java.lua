@@ -61,14 +61,14 @@ local config = {
   -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
   settings = {
     java = {
-      -- TODO Replace this with the absolute path to your main java version (JDTLS requires JDK 21 or higher)
+      -- TODO: Replace this with the absolute path to your main java version (JDTLS requires JDK 21 or higher)
       home = "/usr/lib/jvm/java-21-openjdk-amd64",
       eclipse = {
         downloadSources = true,
       },
       configuration = {
         updateBuildConfiguration = "interactive",
-        -- TODO Update this by adding any runtimes that you need to support your Java projects and removing any that you don't have installed
+        -- TODO: Update this by adding any runtimes that you need to support your Java projects and removing any that you don't have installed
         -- The runtimes' name parameter needs to match a specific Java execution environments.  See https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request and search "ExecutionEnvironment".
         runtimes = {
           {

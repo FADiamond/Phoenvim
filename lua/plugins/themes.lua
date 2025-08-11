@@ -7,9 +7,19 @@ return {
 			require("onedark").setup({
 				style = "warmer",
 				highlights = {
-						
-				}
+					["DiffDelete"] = {
+						fg = "#404040", -- subtle gray diagonal lines
+						bg = "#262629", -- just slightly different from your bg
+					},
+					["Folded"] = {
+						fg = "#888888", -- readable but subtle fold text
+						bg = "#2c2c30", -- close to cursor line color
+						fmt = "italic", -- onedark.nvim uses 'fmt' instead of 'gui'
+					},
+				},
 			})
+			-- Lua
+			require("onedark").load()
 		end,
 	},
 	{
@@ -70,9 +80,7 @@ return {
 		name = "nordic",
 		lazy = false,
 		priority = 1000,
-		config = function()
-			require("nordic").load()
-		end,
+		config = function() end,
 	},
 	{
 		"nickkadutskyi/jb.nvim",
