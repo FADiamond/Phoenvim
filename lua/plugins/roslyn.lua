@@ -1,6 +1,7 @@
 return {
-    -- "seblj/roslyn.nvim",
-    -- ft = "cs",
-    -- opts = {
-    -- }
+    "seblyng/roslyn.nvim",
+    ---@module 'roslyn.config'
+    ---@type RoslynNvimConfig
+    opts = {
+    },
 }

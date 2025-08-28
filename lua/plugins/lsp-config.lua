@@ -204,9 +204,9 @@ return {
 				capabilities = capabilities,
 			})
 
-			lspconfig.omnisharp.setup({
-				capabilities = capabilities,
-			})
+			-- lspconfig.omnisharp.setup({
+			-- 	capabilities = capabilities,
+			-- })
 
 			local function goto_definition_split()
 				vim.cmd("split")
