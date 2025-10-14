@@ -41,3 +41,15 @@ vim.opt.fillchars:append { diff = "╱" }
 vim.g.dart_style_guide = 2
 vim.g.dart_trailing_comma_indent = true
 vim.g.dart_format_on_save = 0
+
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = function () end,
+    ['*'] = function () end,
+  },
+}
