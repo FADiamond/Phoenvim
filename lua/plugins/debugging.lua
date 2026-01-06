@@ -168,7 +168,7 @@ return {
 	{
 		"jay-babu/mason-nvim-dap.nvim",
 		opts = {
-			ensure_installed = { "codelldb" },
+			ensure_installed = { "codelldb", "netcoredbg" },
 			automatic_installation = true,
 			handlers = {
 				function(config)

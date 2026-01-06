@@ -27,8 +27,8 @@ return {
 				cxx = true,
 			},
 		})
-		vim.keymap.set({ "n", "x" }, "<leader>rr", function()
+		vim.keymap.set({ "n", "x" }, "<leader>R", function()
 			require("refactoring").select_refactor()
-		end)
+		end, { desc = "[R]efactoring Selection"})
 	end,
 }

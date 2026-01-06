@@ -19,7 +19,8 @@ return {
 				-- "basedpyright",
 				-- "pylsp",
 				-- "tinymist",
-				"vue_ls",
+				-- "vue_ls",
+				"volar",
 				"html",
 				"cssls",
 				"eslint",
@@ -66,21 +67,24 @@ return {
 				},
 			})
 			vim.api.nvim_command("MasonToolsInstall")
-			local jdtls = function()
-				require("java").setup({
-					-- Your custom nvim-java configuration goes here
-				})
-			end
+			-- local jdtls = function()
+			-- 	require("java").setup({
+			-- 		-- Your custom nvim-java configuration goes here
+			-- 	})
+			-- end
 
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
 			})
-			lspconfig.pylsp.setup({
-				capabilities = capabilities,
-			})
+			-- lspconfig.pylsp.setup({
+			-- 	capabilities = capabilities,
+			-- })
 			lspconfig.basedpyright.setup({
 				capabilities = capabilities,
 			})
+			-- lspconfig.pyright.setup({
+			-- 	capabilities = capabilities,
+			-- })
 
 			-- Webdev LSP Servers
 			lspconfig.ts_ls.setup({
@@ -203,6 +207,22 @@ return {
 			lspconfig.tinymist.setup({
 				capabilities = capabilities,
 			})
+
+			-- lspconfig.jdtls.setup({
+			-- 	settings = {
+			-- 		java = {
+			-- 			configuration = {
+			-- 				runtimes = {
+			-- 					{
+			-- 						name = "JavaSE-21",
+			-- 						path = "/usr/lib/jvm/java-21-openjdk-amd64",
+			-- 						default = true,
+			-- 					},
+			-- 				},
+			-- 			},
+			-- 		},
+			-- 	},
+			-- })
 
 			-- lspconfig.omnisharp.setup({
 			-- 	capabilities = capabilities,

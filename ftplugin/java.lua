@@ -71,22 +71,22 @@ local config = {
         -- TODO: Update this by adding any runtimes that you need to support your Java projects and removing any that you don't have installed
         -- The runtimes' name parameter needs to match a specific Java execution environments.  See https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request and search "ExecutionEnvironment".
         runtimes = {
-          {
-            name = "JavaSE-1.8",
-            path = "/usr/lib/jvm/java-8-openjdk-amd64",
-          },
-          {
-            name = "JavaSE-11",
-            path = "/usr/lib/jvm/java-11-openjdk-amd64",
-          },
-          {
-            name = "JavaSE-17",
-            path = "/usr/lib/jvm/java-17-openjdk-amd64",
-          },
-          {
-            name = "JavaSE-19",
-            path = "/usr/lib/jvm/java-19-openjdk-amd64",
-          },
+          -- {
+          --   name = "JavaSE-1.8",
+          --   path = "/usr/lib/jvm/java-8-openjdk-amd64",
+          -- },
+          -- {
+          --   name = "JavaSE-11",
+          --   path = "/usr/lib/jvm/java-11-openjdk-amd64",
+          -- },
+          -- {
+          --   name = "JavaSE-17",
+          --   path = "/usr/lib/jvm/java-17-openjdk-amd64",
+          -- },
+          -- {
+          --   name = "JavaSE-19",
+          --   path = "/usr/lib/jvm/java-19-openjdk-amd64",
+          -- },
           {
             name = "JavaSE-21",
             path = "/usr/lib/jvm/java-21-openjdk-amd64",
@@ -109,10 +109,10 @@ local config = {
       format = {
         enabled = true,
         -- Formatting works by default, but you can refer to a specific file/URL if you choose
-        -- settings = {
-        --   url = "https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml",
-        --   profile = "GoogleStyle",
-        -- },
+        settings = {
+          url = "https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml",
+          profile = "GoogleStyle",
+        },
       },
       completion = {
         favoriteStaticMembers = {

@@ -1,14 +1,14 @@
 return {
-	{
-	"tiagovla/scope.nvim",
-	config = function()
-		local scope = require("scope")
-		scope.setup({
-			vim.keymap.set("n", "<leader>bl", "<cmd>Telescope scope buffers<CR>",
-				{ desc = "Open Buffers list" }),
-		})
-	end,
-	},
+	-- {
+	-- "tiagovla/scope.nvim",
+	-- config = function()
+	-- 	local scope = require("scope")
+	-- 	scope.setup({
+	-- 		vim.keymap.set("n", "<leader>bl", "<cmd>Telescope scope buffers<CR>",
+	-- 			{ desc = "Open Buffers list" }),
+	-- 	})
+	-- end,
+	-- },
 	-- {
 	-- 	"akinsho/bufferline.nvim",
 	-- 	version = "*",    -- optional: or pin a specific version

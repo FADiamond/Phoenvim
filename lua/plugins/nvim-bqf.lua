@@ -2,6 +2,8 @@ return {
 	"kevinhwang91/nvim-bqf",
 	config = function()
 		require("bqf").setup({
+			auto_enable = false,
+			auto_resize_height = true,
 			filter = {
 				fzf = {
 					extra_opts = { "--bind", "ctrl-o:toggle-all", "--delimiter", "│" },
