@@ -94,10 +94,10 @@ return {
 				-- }),
 
 				-- CSS/SCSS linting
-				null_ls.builtins.diagnostics.stylelint.with({
-					filetypes = { "css", "scss" },
-					prefer_local = "node_modules/.bin",
-				}),
+				-- null_ls.builtins.diagnostics.stylelint.with({
+				-- 	filetypes = { "css", "scss" },
+				-- 	prefer_local = "node_modules/.bin",
+				-- }),
 				require("none-ls.diagnostics.eslint").with({
 					filetypes = {
 						"javascript",
