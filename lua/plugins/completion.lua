@@ -11,7 +11,7 @@ return {
 		config = function()
 			-- Load snippet paths for our custom snippets BEFORE initializing luasnip
 			require("luasnip.loaders.from_vscode").lazy_load({
-				paths = vim.fn.stdpath("config") .. "/lua/snippets",
+				paths = vim.fn.stdpath("config") .. "/lua/plugins/snippets",
 			})
 		end,
 	},
@@ -20,6 +20,7 @@ return {
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
+			require("luasnip.loaders.from_vscode").lazy_load()
 			require("luasnip.loaders.from_vscode").lazy_load({
 				paths = { "./lua/plugins/snippets/flutter-riverpod-snippets" },
 			})

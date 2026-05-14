@@ -34,7 +34,7 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			{ "folke/neodev.nvim", opts = {} },
+			{ "folke/neodev.nvim",                        opts = {} },
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
 			{
 				"SmiteshP/nvim-navbuddy",
@@ -114,6 +114,37 @@ return {
 					},
 				},
 			})
+
+			lspconfig.tailwindcss.setup({
+				capabilities = capabilities,
+			})
+
+			-- lspconfig.emmet_ls.setup({
+			-- 	-- on_attach = on_attach,
+			-- 	capabilities = capabilities,
+			-- 	filetypes = {
+			-- 		"css",
+			-- 		"eruby",
+			-- 		"html",
+			-- 		"javascript",
+			-- 		"javascriptreact",
+			-- 		"less",
+			-- 		"sass",
+			-- 		"scss",
+			-- 		"svelte",
+			-- 		"pug",
+			-- 		"typescriptreact",
+			-- 		"vue",
+			-- 	},
+			-- 	init_options = {
+			-- 		html = {
+			-- 			options = {
+			-- 				-- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+			-- 				["bem.enabled"] = true,
+			-- 			},
+			-- 		},
+			-- 	},
+			-- })
 
 			lspconfig.basedpyright.setup({
 				capabilities = capabilities,
